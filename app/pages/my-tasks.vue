@@ -6,25 +6,14 @@
           <p class="text-sm font-medium">
             My Tasks
           </p>
-          <UButton
-            icon="i-heroicons-arrow-path"
-            size="xs"
-            color="gray"
-            square
-            variant="ghost"
-            :class="{ 'hover:!bg-transparent animate-spin': isFetching }"
-            @click="refreshTasks()"
-          />
+          <UButton icon="i-heroicons-arrow-path" size="xs" color="gray" square variant="ghost"
+            :class="{ 'hover:!bg-transparent animate-spin': isFetching }" @click="refreshTasks()" />
         </div>
       </template>
 
       <template #content>
         <div class="space-y-3">
-          <tasks-list
-            v-model="tasks"
-            :readonly="true"
-            @click:task="(id) => refTaskPageWrapper.openTaskView(id)"
-          />
+          <tasks-list v-model="tasks" :readonly="true" @click:task="(id) => refTaskPageWrapper.openTaskView(id)" />
         </div>
       </template>
     </TaskPageWrapper>
@@ -52,6 +41,7 @@ const refreshTasks = async () => {
   try {
     await taskStore.fetchMyTasks()
     tasks.value = taskStore.myTasks
+    console.log(tasks.value)
   }
   finally {
     isFetching.value = false

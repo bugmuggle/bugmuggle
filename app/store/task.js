@@ -94,6 +94,25 @@ export const useTaskStore = defineStore('taskStore', () => {
       }
     })
 
+    const resolver = response.data.map(task =>
+      $fetch(`/api/channel/${task.channelId}/tasks/${task.id}/assignments/get`),
+    )
+
+    const assignments = (await Promise.allSettled(resolver))
+      .filter(x => x.status === 'fulfilled')
+      .map(x => x.value.data)
+      .flat()
+
+    assignments.forEach((newAssignee) => {
+      const existingIndex = assignees.value.findIndex(
+        a => a.taskId === newAssignee.taskId && a.userId === newAssignee.userId
+      )
+
+      if (existingIndex === -1) {
+        assignees.value.push(newAssignee)
+      }
+    })
+
     return response.data
   }
 
