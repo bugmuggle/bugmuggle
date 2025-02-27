@@ -1,84 +1,42 @@
 <template>
   <div class="space-y-3 overflow-y-auto">
     <div class="flex items-center gap-1 h-16 px-3">
-      <UButton
-        icon="i-heroicons-x-mark"
-        size="sm"
-        color="gray"
-        square
-        variant="ghost"
-        @click="closeTaskView"
-      />
+      <UButton icon="i-heroicons-x-mark" size="sm" color="gray" square variant="ghost" @click="closeTaskView" />
 
       <div class="grow" />
 
-      <UButton
-        :icon="
-          isCopiedTaskUrl
-            ? 'i-heroicons-check-circle'
-            : 'i-heroicons-clipboard-document-list'
-        "
-        size="sm"
-        square
-        color="white"
-        variant="ghost"
-        @click="onClickCopyTaskUrl"
-      />
+      <UButton :icon="isCopiedTaskUrl
+        ? 'i-heroicons-check-circle'
+        : 'i-heroicons-clipboard-document-list'
+        " size="sm" square color="white" variant="ghost" @click="onClickCopyTaskUrl" />
 
-      <UButton
-        icon="i-heroicons-arrow-top-right-on-square"
-        size="sm"
-        color="white"
-        variant="ghost"
-        square
-        @click="openTaskInNewTab"
-      />
+      <UButton icon="i-heroicons-arrow-top-right-on-square" size="sm" color="white" variant="ghost" square
+        @click="openTaskInNewTab" />
     </div>
     <div v-if="task" class="px-3 space-y-3">
-      <UTextarea
-        v-model="task.title"
-        size="xl"
-        :ui="{
-          variant: {
-            none: 'focus:ring-1'
-          },
-          size: {
-            xl: 'text-2xl h-fit'
-          }
-        }"
-        autoresize
-        placeholder="Enter task title"
-        variant="none"
-      />
+      <UTextarea v-model="task.title" size="xl" :ui="{
+        variant: {
+          none: 'focus:ring-1'
+        },
+        size: {
+          xl: 'text-2xl h-fit'
+        }
+      }" autoresize placeholder="Enter task title" variant="none" />
 
       <div class="grid grid-cols-12 items-center gap-3 px-4">
         <div class="col-span-2">
           <p class="text-sm text-gray-500 font-regular">Assignee</p>
         </div>
         <div class="col-span-10">
-          <USelectMenu
-            v-model="selectedAssignee"
-            :loading="loadingSelectAssignee"
-            :multiple="false"
-            :searchable="searchAssignee"
-            :ui="{
+          <USelectMenu v-model="selectedAssignee" :loading="loadingSelectAssignee" :multiple="false"
+            :searchable="searchAssignee" :ui="{
               variant: {
                 none: 'focus:ring-1'
               }
-            }"
-            placeholder="Search for a user..."
-            option-attribute="githubUsername"
-            trailing
-            variant="none"
-            by="id"
-          >
+            }" placeholder="Search for a user..." option-attribute="githubUsername" trailing variant="none" by="id">
             <template #label>
               <div v-if="selectedAssignee" class="flex items-center gap-2">
-                <UAvatar
-                  :src="selectedAssignee?.githubAvatarUrl"
-                  :alt="selectedAssignee?.githubUsername"
-                  size="xs"
-                />
+                <UAvatar :src="selectedAssignee?.githubAvatarUrl" :alt="selectedAssignee?.githubUsername" size="xs" />
                 <p class="text-sm text-gray-500">{{ selectedAssignee?.githubUsername }}</p>
               </div>
               <div v-else>
@@ -100,24 +58,19 @@
           <p class="text-sm text-gray-500 font-regular">Status</p>
         </div>
         <div class="col-span-10">
-          <USelectMenu
-            v-model="selectedStatus"
-            :options="[
-              'To Do',
-              'In Progress',
-              'Pull Request',
-              'Testing',
-              'Completed',
-              'Blocked',
-              'Cancelled'
-            ]"
-            :ui="{
-              variant: {
-                none: 'focus:ring-1'
-              }
-            }"
-            variant="none"
-          />
+          <USelectMenu v-model="selectedStatus" :options="[
+            'To Do',
+            'In Progress',
+            'Pull Request',
+            'Testing',
+            'Completed',
+            'Blocked',
+            'Cancelled'
+          ]" :ui="{
+            variant: {
+              none: 'focus:ring-1'
+            }
+          }" variant="none" />
         </div>
       </div>
 
@@ -127,15 +80,11 @@
         </div>
         <div class="col-span-10">
           <UPopover :popper="{ placement: 'bottom-start' }">
-            <UButton 
-              icon="i-heroicons-calendar-days-20-solid" 
-              variant="ghost" 
-              color="gray" 
-              :label="selectedDueDate ? format(selectedDueDate, 'd MMM, yyy') : 'Select due date'" 
-            />
+            <UButton icon="i-heroicons-calendar-days-20-solid" variant="ghost" color="gray"
+              :label="selectedDueDate ? format(selectedDueDate, 'd MMM, yyy') : 'Select due date'" />
 
             <template #panel="{ close }">
-              <DatePicker v-model="selectedDueDate" is-required @close="close" />
+              <DatePicker v-model="selectedDueDate" :attributes="dateAttributes" is-required @close="close" />
             </template>
           </UPopover>
         </div>
@@ -187,11 +136,18 @@ const assignees = computed(() => {
   return taskStore.assignees.filter(a => a.taskId === props.taskId)
 })
 
+const dateAttributes = [
+  {
+    dot: "green",
+    dates: new Date()
+  }
+]
+
 const task = computed({
   get: () => {
     return taskStore.getTask(+props.taskId)
   },
-  set: (_) => {}
+  set: (_) => { }
 })
 
 const taskUrl = computed(() => {
