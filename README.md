@@ -11,18 +11,21 @@ Bugmuggle is built with [Nuxt](https://nuxt.com) and deployed on Cloudflare Page
 </a>
 
 ## Setup
-1. Create a `.env` file in the root of the project and add the following:
-```bash
-NUXT_SESSION_PASSWORD=password-with-at-least-32-characters
-NUXT_OAUTH_GITHUB_CLIENT_ID=your_github_client_id
-NUXT_OAUTH_GITHUB_CLIENT_SECRET=your_github_client_secret
-```
+1. Rename `.env.example` to `.env` in the root of the project.
 
-2. Make sure to install the dependencies with [pnpm](https://pnpm.io/installation#using-corepack):
+2. Open the `.env` file and populate the following:
+    ```bash
+    NUXT_SESSION_PASSWORD=password-with-at-least-32-characters
+    NUXT_OAUTH_GITHUB_CLIENT_ID=your_github_client_id
+    NUXT_OAUTH_GITHUB_CLIENT_SECRET=your_github_client_secret
+    ```
+    You can get your Github Client ID and Client Secret from your [Github's developer profile settings](https://github.com/settings/developers)
 
-```bash
-pnpm install
-```
+
+3. Make sure to install the dependencies with [pnpm](https://pnpm.io/installation#using-corepack):
+    ```bash
+    pnpm install
+    ```
 
 ## Development Server
 
