@@ -133,6 +133,44 @@
         <editor ref="elEditor" v-model="editDescription" />
       </div>
 
+      <div class="px-4 space-y-1 mt-4">
+        <p class="text-sm text-gray-500 font-regular">Attachments</p>
+        
+        <div class="space-y-2">
+          <UInput
+            ref="refFileInput"
+            type="file"
+            multiple
+            @change="(e) => onFileUpload(e)"
+          />
+
+          <div v-for="attachment in attachments" :key="attachment.id" 
+               class="flex items-center justify-between p-2 border border-gray-700 rounded-md">
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-paper-clip" />
+              <span class="text-sm">{{ attachment.fileName }}</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <UButton
+                icon="i-heroicons-arrow-down-tray"
+                size="xs"
+                color="gray"
+                variant="ghost"
+                @click="downloadAttachment(attachment.id)"
+              />
+              <UButton
+                icon="i-heroicons-trash"
+                size="xs"
+                color="red"
+                variant="ghost"
+                @click="deleteAttachment(attachment.id)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="h-24" />
     </div>
   </div>
@@ -245,8 +283,21 @@ watch(() => props.taskId, (value) => {
   task.value = taskStore.getTask(value)
 })
 
+const attachments = ref([])
+
+const fetchAttachments = async () => {
+  try {
+    const res = await taskStore.fetchTaskAttachments(props.cid, props.taskId)
+    attachments.value = res
+  } catch (error) {
+    console.error('Error fetching attachments:', error)
+  }
+}
+
+const refFileInput = ref(null)
+
 const initAssignees = () => {
-  setTimeout(() => {
+  setTimeout(async () => {
     isReady.value = false
     selectedAssignee.value = assignees.value[0]
     selectedStatus.value = task.value.status
@@ -255,6 +306,13 @@ const initAssignees = () => {
     if (elEditor.value) {
       elEditor.value.setContent(task.value.description)
     }
+    
+    await fetchAttachments()
+    
+    if (refFileInput.value) {
+      refFileInput.value.input.value = null
+    }
+    
     nextTick(() => {
       isReady.value = true
     })
@@ -309,6 +367,36 @@ watch(editDescription, (value) => {
 
 const openTaskInNewTab = () => {
   window.open(`/channel/${props.cid}/task/${props.taskId}`, '_blank')
+}
+
+const onFileUpload = async (files) => {
+  if (!files.length) return
+
+  for (const file of files) {
+    if (file.size > 10 * 1024 * 1024) { 
+      console.error('File too large')
+      // toast.add({ title: 'File too large', description: `${file.name} exceeds 10MB limit`, color: 'red' })
+      continue
+    }
+
+    try {
+      const response = await taskStore.uploadTaskAttachment(props.cid, props.taskId, file)
+      attachments.value.push(response)
+      // toast.add({ title: 'Upload successful', description: `${file.name} uploaded`, color: 'green' })
+    } catch (error) {
+      console.error('Error uploading file:', error)
+      // toast.add({ title: 'Upload failed', description: `${file.name} could not be uploaded`, color: 'red' })
+    }
+  }
+}
+
+const downloadAttachment = async (attachmentId) => {
+  await taskStore.downloadTaskAttachment(props.cid, props.taskId, attachmentId)
+}
+
+const deleteAttachment = async (attachmentId) => {
+  await taskStore.deleteTaskAttachment(props.cid, props.taskId, attachmentId)
+  attachments.value = attachments.value.filter(a => a.id !== attachmentId)
 }
 
 defineExpose({

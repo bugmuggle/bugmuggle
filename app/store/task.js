@@ -147,6 +147,38 @@ export const useTaskStore = defineStore('taskStore', () => {
     .sort((x, y) => x.order - y.order)
     .map(x => ({ ...x, dueDateHero: getHeroDate(x.dueDate) }))
 
+  const uploadTaskAttachment = async (cid, tid, file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const res = await $fetch(`/api/channel/${cid}/tasks/${tid}/attachments/upload`, {
+      method: 'POST',
+      body: formData
+    })
+
+    return res.data
+  }
+
+  const downloadTaskAttachment = async (cid, tid, aid) => {
+    const response = await $fetch(`/api/channel/${cid}/tasks/${tid}/attachments/${aid}/download`, {
+      responseType: 'blob'
+    })
+    const url = window.URL.createObjectURL(response)
+    window.open(url, '_blank')
+    window.URL.revokeObjectURL(url)
+  }
+
+  const fetchTaskAttachments = async (cid, tid) => {
+    const res = await $fetch(`/api/channel/${cid}/tasks/${tid}/attachments/fetch`)
+    return res.data
+  }
+
+  const deleteTaskAttachment = async (cid, tid, aid) => {
+    await $fetch(`/api/channel/${cid}/tasks/${tid}/attachments/${aid}/delete`, {
+      method: 'DELETE'
+    })
+  }
+
   return {
     tasks,
     myTasks,
@@ -156,6 +188,7 @@ export const useTaskStore = defineStore('taskStore', () => {
     fetchMyTasks,
     createTask,
     deleteTask,
-    updateTaskOrders, updateTask, getTask, updateTaskAssignees, getTasksByChannelId
+    updateTaskOrders, updateTask, getTask, updateTaskAssignees, getTasksByChannelId,
+    uploadTaskAttachment, downloadTaskAttachment, fetchTaskAttachments, deleteTaskAttachment
   }
 })

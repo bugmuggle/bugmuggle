@@ -18,6 +18,8 @@ logs
 .DS_Store
 .fleet
 .idea
+.bugmuggle
+
 
 # Local env files
 .env
