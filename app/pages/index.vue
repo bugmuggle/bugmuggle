@@ -7,13 +7,23 @@
 </template>
 
 <script setup lang="ts">
+import { useUser } from '@/store/user'
+
 const router = useRouter()
+const storeUser = useUser()
 
 const onAuth = (user: any) => {
   if (!user) {
     return router.replace({ path: '/signin' })
   } else {
-    // TODO: Go to project
+    storeUser.userData = user
+    const lastVisitedProjectId = storeUser.getPrefByKey('lastVisitedProjectId', null)
+
+    if (lastVisitedProjectId) {
+      return router.replace({ path: `/app/${lastVisitedProjectId}/home` })
+    } else {
+      return router.replace({ path: '/app/welcome' })
+    }
   }
 }
 </script>

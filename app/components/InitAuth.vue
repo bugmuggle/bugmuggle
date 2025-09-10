@@ -16,6 +16,8 @@ const init = async () => {
     }
 
     const response = await $fetch('/api/init')
+    
+    return emits('auth', response)
   } catch (err) {
     console.error(err)
     noAuth()
