@@ -9,9 +9,11 @@
 <script setup lang="ts">
 const router = useRouter()
 
-const onAuth = (user) => {
+const onAuth = (user: any) => {
   if (!user) {
     return router.replace({ path: '/signin' })
+  } else {
+    // TODO: Go to project
   }
 }
 </script>

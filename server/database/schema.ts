@@ -4,7 +4,8 @@ export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   firstName: text('first_name'),
-  lastName: text('last_name')
+  lastName: text('last_name'),
+  provider: text('provider')
 })
 
 export const passwordHash = pgTable('password_hash', {
