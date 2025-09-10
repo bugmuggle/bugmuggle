@@ -1,6 +1,12 @@
 import { eq } from "drizzle-orm"
 
 export default defineOAuthGoogleEventHandler({
+  config: {
+    scope: ['email'],
+    authorizationParams: {
+      prompt: 'select_account'
+    }
+  },
   async onSuccess(event, { user, tokens }) {
     const db = useDrizzle()
 
