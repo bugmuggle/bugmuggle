@@ -8,7 +8,15 @@ export const users = pgTable('users', {
   provider: text('provider')
 })
 
+export const userPref = pgTable('user_pref', {
+  id: serial('id').primaryKey(),
+  key: text('key'),
+  value: text('value'),
+  userId: serial('user_id').references(() => users.id).notNull()
+})
+
 export const passwordHash = pgTable('password_hash', {
+  id: serial('id').primaryKey(),
   userId: serial('user_id').references(() => users.id).notNull(),
   hash: text('hash').notNull()
 })
