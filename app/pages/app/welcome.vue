@@ -30,7 +30,7 @@
 import { useUser } from '~/store/user';
 
 const { userData } = useUser()
-const step = ref(2)
+const step = ref(1)
 
 definePageMeta({
   middleware: 'auth'
