@@ -11,11 +11,7 @@ const router = useRouter()
 
 const onAuth = (user) => {
   if (!user) {
-    return router.replace({ path: '/auth' })
+    return router.replace({ path: '/signin' })
   }
 }
-
-onMounted(() => {
-
-})
 </script>

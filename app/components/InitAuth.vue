@@ -3,7 +3,7 @@
 
 <script setup lang="ts">
 const emits = defineEmits(['auth'])
-const { fetch: fetchSession, session, user } = useUserSession()
+const { fetch: fetchSession, user } = useUserSession()
 
 const noAuth = () => emits('auth', null)
 

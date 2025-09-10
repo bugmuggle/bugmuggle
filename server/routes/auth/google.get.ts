@@ -1,15 +1,7 @@
 export default defineOAuthGoogleEventHandler({
-  config: {
-    scope: ['email', 'openid', 'profile']
-  },
   async onSuccess(event, { user, tokens }) {
-    console.log('Google Auth onSuccess')
-    /* await setUserSession(event, {
-      user: {
-        githubId: user.id
-      }
-    })
-    return sendRedirect(event, '/') */
+    console.log('Google Auth onSuccess', user)
+    return sendRedirect(event, '/')
   },
   // Optional, will return a json error and 401 status code by default
   onError(event, error) {
