@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <Button>Click me</Button>
-  </div>
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-<script setup lang="ts">
-import { Button } from '@/components/ui/button'
-</script>
