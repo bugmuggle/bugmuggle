@@ -1,0 +1,23 @@
+meta {
+  name: GET
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseURL}}/api/projects/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+script:pre-request {
+  const token = bru.getEnvVar('TOKEN');
+  if (token) {
+    req.setHeader('Authorization', `Bearer ${token}`);
+  }
+  
+}
