@@ -1,0 +1,26 @@
+meta {
+  name: CREATE
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/api/projects/create
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Test Project",
+    "userId": 1
+  }
+}
+
+script:pre-request {
+  const token = bru.getEnvVar('TOKEN');
+  if (token) {
+    req.setHeader('Authorization', `Bearer ${token}`);
+  }
+  
+}

@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  name: z.string().min(1, 'Project name is missing'),
-  userId: z.number().min(1, 'User ID is missing')
+  name: z.string().min(1, 'Project name is required'),
+  userId: z.number().min(1, 'User ID is required')
 })
 
 export default defineAuthHandler(async (event) => {
