@@ -15,6 +15,11 @@ const limiter = new RateLimiterMemory({
   duration: 600, // per 10 minutes
 })
 
+function normalizeIp(ip: string) {
+  if (ip === '::1') return '127.0.0.1'
+  return ip
+}
+
 function signJwt(payload: { sub: string; email: string }, secret: string, expiresInSeconds: number) {
   return jwt.sign(
     {
@@ -33,7 +38,8 @@ function signJwt(payload: { sub: string; email: string }, secret: string, expire
 export default defineEventHandler(async (event: H3Event) => {
 
   try {
-    const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown'
+    const ip = normalizeIp(getRequestIP(event, { xForwardedFor: true }) || 'unknown')
+    console.log(ip);
     await limiter.consume(ip)
   } catch {
     throw createError({ statusCode: 429, statusMessage: 'Too Many Requests' })
