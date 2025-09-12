@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import { RateLimiterMemory } from 'rate-limiter-flexible'
 import { eq } from 'drizzle-orm'
 import { getRequestIP, type H3Event } from 'h3'
 import { z } from 'zod'
@@ -9,28 +10,10 @@ const loginSchema = z.object({
   password: z.string().min(1, 'Password is required'),
 })
 
-// Simple in-memory rate limiter per IP
-const attemptsByIp = new Map<string, number[]>()
-const WINDOW_MS = 10 * 60 * 1000 // 10 minutes
-const MAX_ATTEMPTS = 10
-
-function getClientIp(event: H3Event): string {
-  try {
-    return getRequestIP(event, { xForwardedFor: true }) || 'unknown'
-  } catch {
-    return 'unknown'
-  }
-}
-
-function isRateLimited(event: H3Event): boolean {
-  const now = Date.now()
-  const ip = getClientIp(event)
-  const record = attemptsByIp.get(ip) || []
-  const recent = record.filter(t => now - t < WINDOW_MS)
-  recent.push(now)
-  attemptsByIp.set(ip, recent)
-  return recent.length > MAX_ATTEMPTS
-}
+const limiter = new RateLimiterMemory({
+  points: 10, // max attempts
+  duration: 600, // per 10 minutes
+})
 
 function signJwt(payload: { sub: string; email: string }, secret: string, expiresInSeconds: number) {
   return jwt.sign(
@@ -48,7 +31,11 @@ function signJwt(payload: { sub: string; email: string }, secret: string, expire
 }
 
 export default defineEventHandler(async (event: H3Event) => {
-  if (isRateLimited(event)) {
+
+  try {
+    const ip = getRequestIP(event, { xForwardedFor: true }) || 'unknown'
+    await limiter.consume(ip)
+  } catch {
     throw createError({ statusCode: 429, statusMessage: 'Too Many Requests' })
   }
 
