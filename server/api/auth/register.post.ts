@@ -37,7 +37,10 @@ export default defineEventHandler(async (event: H3Event) => {
   const body = await readBody(event);
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
-    throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message });
+    throw createError({
+      statusCode: 400,
+      statusMessage: parsed.error.issues[0]?.message ?? 'Invalid input'
+    });
   }
   const { email, password, firstName, lastName } = parsed.data;
 
