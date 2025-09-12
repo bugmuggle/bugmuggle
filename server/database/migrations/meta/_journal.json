@@ -29,6 +29,13 @@
       "when": 1757684064464,
       "tag": "0003_lean_marauders",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1757691182868,
+      "tag": "0004_white_valeria_richards",
+      "breakpoints": true
     }
   ]
 }

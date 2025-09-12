@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, text, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, serial, varchar, text, integer, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -20,4 +20,12 @@ export const passwordHash = pgTable('password_hash', {
   id: serial('id').primaryKey(),
   userId: serial('user_id').references(() => users.id).notNull().references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
   hash: text('hash').notNull()
+})
+
+export const projects = pgTable('projects', {
+	id: serial('id').primaryKey(),
+	name: text('name').notNull(),
+	createdBy: integer('created_by').notNull().references(() => users.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+	createdAt: timestamp('created_at').defaultNow(),
+	updatedAt: timestamp('updated_at'),
 })
