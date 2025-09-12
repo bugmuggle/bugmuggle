@@ -39,7 +39,6 @@ export default defineEventHandler(async (event: H3Event) => {
 
   try {
     const ip = normalizeIp(getRequestIP(event, { xForwardedFor: true }) || 'unknown')
-    console.log(ip);
     await limiter.consume(ip)
   } catch {
     throw createError({ statusCode: 429, statusMessage: 'Too Many Requests' })
