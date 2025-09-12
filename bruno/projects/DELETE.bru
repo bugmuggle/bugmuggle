@@ -1,0 +1,23 @@
+meta {
+  name: DELETE
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseURL}}/api/projects/:id/delete
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+script:pre-request {
+  const token = bru.getEnvVar('TOKEN');
+  if (token) {
+    req.setHeader('Authorization', `Bearer ${token}`);
+  }
+  
+}
