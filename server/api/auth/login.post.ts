@@ -2,6 +2,12 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 import { getRequestIP, type H3Event } from 'h3'
+import { z } from 'zod'
+
+const loginSchema = z.object({
+  email: z.email('Invalid email'),
+  password: z.string().min(1, 'Password is required'),
+})
 
 // Simple in-memory rate limiter per IP
 const attemptsByIp = new Map<string, number[]>()
@@ -26,17 +32,6 @@ function isRateLimited(event: H3Event): boolean {
   return recent.length > MAX_ATTEMPTS
 }
 
-function assertValidBody(body: unknown) {
-  if (!body || typeof body !== 'object') {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid payload' })
-  }
-  const { email, password } = body as { email?: string; password?: string }
-  if (typeof email !== 'string' || !email.trim() || typeof password !== 'string' || !password) {
-    throw createError({ statusCode: 400, statusMessage: 'Invalid payload' })
-  }
-  return { email: email.trim().toLowerCase(), password }
-}
-
 function signJwt(payload: { sub: string; email: string }, secret: string, expiresInSeconds: number) {
   return jwt.sign(
     {
@@ -58,9 +53,13 @@ export default defineEventHandler(async (event: H3Event) => {
   }
 
   try {
-    const body = await readBody(event)
-    const { email, password } = assertValidBody(body)
     const db = useDrizzle()
+    const body = await readBody(event)
+    const parsed = loginSchema.safeParse(body)
+    if (!parsed.success) {
+      throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message })
+    }
+    const { email, password } = parsed;
 
     const { jwtSecret } = useRuntimeConfig(event)
     if (!jwtSecret) {

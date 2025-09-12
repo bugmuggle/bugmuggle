@@ -2,45 +2,20 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 import type { H3Event } from 'h3'
+import { z } from 'zod'
 
-function assertValidRegistrationBody(body: unknown) {
-  const { email, password, name } = body as { email?: string; password?: string; name?: string }
-
-  if (typeof email !== 'string' || !email.trim()) {
-    throw createError({ statusCode: 400, statusMessage: 'Valid email is required' })
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(email.trim())) {
-    throw createError({ statusCode: 400, statusMessage: 'Valid email format is required' })
-  }
-
-  if (typeof password !== 'string' || password.length < 8) {
-    throw createError({ statusCode: 400, statusMessage: 'Password must be at least 8 characters long' })
-  }
-
-  const hasUpperCase = /[A-Z]/.test(password)
-  const hasLowerCase = /[a-z]/.test(password)
-  const hasNumbers = /\d/.test(password)
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
-
-  if (!hasUpperCase || !hasLowerCase || !hasNumbers || !hasSpecialChar) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Password must contain uppercase, lowercase, number, and special character',
-    })
-  }
-
-  if (typeof name !== 'string' || !name.trim() || name.trim().length < 2) {
-    throw createError({ statusCode: 400, statusMessage: 'Name must be at least 2 characters long' })
-  }
-
-  return {
-    email: email.trim().toLowerCase(),
-    password,
-    name: name.trim(),
-  }
-}
+const registerSchema = z.object({
+  email: z.email('Invalid Emailw'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .refine(p => /[A-Z]/.test(p), { message: 'Password must contain an uppercase letter' })
+    .refine(p => /[a-z]/.test(p), { message: 'Password must contain a lowercase letter' })
+    .refine(p => /\d/.test(p), { message: 'Password must contain a number' })
+    .refine(p => /[!@#$%^&*(),.?":{}|<>]/.test(p), { message: 'Password must contain a special character' }),
+  firstName: z.string().min(2, 'First name must be at least 2 characters long').trim(),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters long').trim(),
+})
 
 function signJwt(payload: { sub: string; email: string }, secret: string, expiresInSeconds: number) {
   return jwt.sign(
@@ -58,9 +33,13 @@ function signJwt(payload: { sub: string; email: string }, secret: string, expire
 }
 
 export default defineEventHandler(async (event: H3Event) => {
-  const body = await readBody(event)
-  const { email, password, name } = assertValidRegistrationBody(body)
   const db = useDrizzle()
+  const body = await readBody(event);
+  const parsed = registerSchema.parse(body);
+  if (!parsed.success) {
+    throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message })
+  }
+  const { email, password, firstName, lastName } = parsed;
 
   const { jwtSecret } = useRuntimeConfig(event)
   if (!jwtSecret) {
@@ -80,7 +59,8 @@ export default defineEventHandler(async (event: H3Event) => {
       .insert(tables.users)
       .values({
         email,
-        firstName: name, // storing full name in firstName for now
+        firstName,
+        lastName,
         createdAt: new Date(),
       })
       .returning()
