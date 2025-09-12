@@ -11,19 +11,19 @@ export default defineAuthHandler(async (event) => {
     const projectId = Number(idParam)
 
     if (!projectId || Number.isNaN(projectId) || projectId < 0) {
-      throw createError({ statusCode: 400, statusMessage: 'Invalid project id' })
+      return createError({ statusCode: 400, statusMessage: 'Invalid project id' })
     }
 
     const body = await readBody(event)
     const parsedBody = schema.safeParse(body)
     if (!parsedBody.success) {
-      throw createError({ statusCode: 400, statusMessage: parsedBody.error.issues[0]?.message ?? 'Invalid input' })
+      return createError({ statusCode: 400, statusMessage: parsedBody.error.issues[0]?.message ?? 'Invalid input' })
     }
 
     const { name } = parsedBody.data
 
     if (!name) {
-      throw createError({ statusCode: 400, statusMessage: 'No fields to update' })
+      return createError({ statusCode: 400, statusMessage: 'No fields to update' })
     }
 
     const db = event.context.db
@@ -32,7 +32,7 @@ export default defineAuthHandler(async (event) => {
     const [existing] = await db.select().from(projects).where(eq(projects.id, projectId)).limit(1)
 
     if (!existing) {
-      throw createError({ statusCode: 404, statusMessage: 'Project not found' })
+      return createError({ statusCode: 404, statusMessage: 'Project not found' })
     }
 
     const [updated] = await db.update(projects)
