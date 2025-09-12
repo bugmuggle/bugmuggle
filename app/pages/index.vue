@@ -22,7 +22,7 @@ const onAuth = (user: any) => {
     if (lastVisitedProjectId) {
       return router.replace({ path: `/app/${lastVisitedProjectId}/home` })
     } else {
-      return router.replace({ path: '/app/welcome' })
+      return router.replace({ path: '/app/1/home' })
     }
   }
 }
