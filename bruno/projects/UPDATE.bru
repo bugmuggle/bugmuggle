@@ -1,0 +1,29 @@
+meta {
+  name: UPDATE
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseURL}}/api/projects/:id/update
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+body:json {
+  {
+    "name": "Test Project"
+  }
+}
+
+script:pre-request {
+  const token = bru.getEnvVar('TOKEN');
+  if (token) {
+    req.setHeader('Authorization', `Bearer ${token}`);
+  }
+  
+}
