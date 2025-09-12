@@ -11,3 +11,15 @@ export type UserProfile = {
   firstName?: string
   lastName?: string
 }
+
+export type Project = {
+  id: number
+  name: string
+  createdBy: UserPref
+  createdAt: number
+}
+
+export type CreateProjectParams = {
+  name: string
+  createdBy: number
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Create Project
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseURL}}/api/projects/create
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
