@@ -10,7 +10,7 @@ export default defineAuthHandler(async (event) => {
     const body = await readBody(event)
     const parsedBody = schema.safeParse(body)
     if (!parsedBody.success) {
-      throw createError({ statusCode: 400, statusMessage: parsedBody.error.issues[0]?.message ?? 'Invalid input' });
+      return createError({ statusCode: 400, statusMessage: parsedBody.error.issues[0]?.message ?? 'Invalid input' });
     }
 
     const db = event.context.db
