@@ -6,7 +6,7 @@ export default defineAuthHandler(async (event) => {
     const projectId = Number(idParam)
 
     if (!projectId || Number.isNaN(projectId) || projectId < 0) {
-      throw createError({ statusCode: 400, statusMessage: 'Invalid project id' })
+      return createError({ statusCode: 400, statusMessage: 'Invalid project id' })
     }
 
     const db = event.context.db
