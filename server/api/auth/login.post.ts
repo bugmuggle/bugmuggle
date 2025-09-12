@@ -55,11 +55,11 @@ export default defineEventHandler(async (event: H3Event) => {
   try {
     const db = useDrizzle()
     const body = await readBody(event)
-    const parsed = loginSchema.safeParse(body)
+    const parsed = loginSchema.safeParse(body);
     if (!parsed.success) {
-      throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message })
+      throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message });
     }
-    const { email, password } = parsed;
+    const { email, password } = parsed.data;
 
     const { jwtSecret } = useRuntimeConfig(event)
     if (!jwtSecret) {

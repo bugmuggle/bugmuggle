@@ -35,11 +35,11 @@ function signJwt(payload: { sub: string; email: string }, secret: string, expire
 export default defineEventHandler(async (event: H3Event) => {
   const db = useDrizzle()
   const body = await readBody(event);
-  const parsed = registerSchema.parse(body);
+  const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
-    throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message })
+    throw createError({ statusCode: 400, statusMessage: parsed.error.errors[0].message });
   }
-  const { email, password, firstName, lastName } = parsed;
+  const { email, password, firstName, lastName } = parsed.data;
 
   const { jwtSecret } = useRuntimeConfig(event)
   if (!jwtSecret) {
