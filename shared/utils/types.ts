@@ -49,6 +49,7 @@ export type ProjectMembershipPayload = {
   type?: string
   userId: UserPref | number
   projectId: Project | number
+  createdBy: UserPref | number
 }
 
 export type CreateProjectParams = {

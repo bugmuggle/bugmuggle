@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
 const schema = z.object({
-  userId: z.number().min(1, 'User id is missing'),
+  userId: z.number().min(1, 'User id is required'),
   type: z.string().optional()
 })
 
@@ -20,16 +20,7 @@ export default defineAuthHandler(async (event) => {
 
   const db = event.context.db
 
-  const [queryMembership] = await db.select()
-    .from(tables.projectMemberships)
-    .where(and(
-      eq(tables.projectMemberships.projectId, projectId),
-      eq(tables.projectMemberships.userId, reqUserId),
-      eq(tables.projectMemberships.type, projectMembershipTypes.ADMIN)
-    ))
-    .limit(1)
-
-  if (!queryMembership) {
+  if (!(await verifyAccessToProject(db, reqUserId, projectId)).success) {
     return createError(ERR_RESPONSE_PROJECT_UNAUTHORIZED_ACCESS)
   }
 

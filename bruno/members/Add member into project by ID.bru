@@ -5,13 +5,13 @@ meta {
 }
 
 post {
-  url: {{baseURL}}/api/projects/:id/members/add
+  url: {{baseURL}}/api/members/:pid/add
   body: json
   auth: inherit
 }
 
 params:path {
-  id: 17
+  pid: 
 }
 
 body:json {

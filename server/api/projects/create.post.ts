@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  name: z.string().min(1, 'Project name is missing')
+  name: z.string().min(1, 'Project name is required')
 })
 
 export default defineAuthHandler(async (event) => {
@@ -24,7 +24,8 @@ export default defineAuthHandler(async (event) => {
   const insertPayload: ProjectMembershipPayload = {
     type: projectMembershipTypes.ADMIN,
     userId: reqUserId,
-    projectId: newProject.id
+    projectId: newProject.id,
+    createdBy: reqUserId
   }
 
   await db.insert(tables.projectMemberships)

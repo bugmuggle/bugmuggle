@@ -1,11 +1,11 @@
 meta {
-  name: Get Members
+  name: Get members
   type: http
-  seq: 5
+  seq: 4
 }
 
 get {
-  url: {{baseURL}}/api/projects/:id/members/all?limit=100&offsetId=1&order=desc
+  url: {{baseURL}}/api/members/:pid/all?limit=100&offsetId=1&order=desc
   body: none
   auth: inherit
 }
@@ -17,7 +17,7 @@ params:query {
 }
 
 params:path {
-  id: 17
+  pid: 
 }
 
 settings {
