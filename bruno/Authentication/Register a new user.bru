@@ -1,0 +1,30 @@
+meta {
+  name: Register a new user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}/api/auth/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "test2@email.com",
+    "password": "ui1234"
+  }
+}
+
+script:post-response {
+  const cookie = bru.getVar("cookie");
+  
+  if (cookie) {
+    req.setHeader("cookie", cookie)
+  }
+}
+
+settings {
+  encodeUrl: true
+}
