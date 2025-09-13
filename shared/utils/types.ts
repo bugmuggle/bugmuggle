@@ -13,8 +13,10 @@ declare module 'h3' {
 
 export type UserPref = {
   id: number
-  key?: string | null
-  value?: string | null
+  pref?: {
+    key: string
+    value: string | boolean | number | undefined | null
+  } | unknown
   userId: number
 }
 

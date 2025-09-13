@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1757494038864,
-      "tag": "0000_low_lady_deathstrike",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1757500148090,
-      "tag": "0001_dapper_loa",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1757500614800,
-      "tag": "0002_bouncy_talon",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1757742060529,
-      "tag": "0003_sturdy_chamber",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1757742134964,
-      "tag": "0004_rich_firebrand",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1757743489837,
-      "tag": "0005_jittery_lionheart",
+      "when": 1757753479475,
+      "tag": "0000_first_black_queen",
       "breakpoints": true
     }
   ]

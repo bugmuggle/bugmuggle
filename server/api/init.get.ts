@@ -18,14 +18,31 @@ export default defineAuthHandler(async (event) => {
     .from(tables.userPref)
     .where(eq(tables.userPref.userId, queryUser.id))
 
-  const lastVisitedProjectId = getPrefByKey(
+  const lastVisitedProjectId: string | boolean | number | null = getPrefByKey(
     queryPref,
     prefKeys.LAST_VISITED_PROJECT_ID,
     null
   )
 
-  if (lastVisitedProjectId) {
-    
+  if (!lastVisitedProjectId) {
+    const [queryFirstProject] = await db.select()
+      .from(tables.projects)
+      .where(eq(tables.projects.createdBy, user.id))
+      .limit(1)
+
+    if (queryFirstProject) {
+      const [newPref] = await db.insert(tables.userPref)
+        .values({
+          userId: user.id,
+          pref: {
+            key: prefKeys.LAST_VISITED_PROJECT_ID,
+            value: queryFirstProject.id
+          }
+        })
+        .returning()
+
+      queryPref.push(newPref)
+    }
   }
   
   return {
