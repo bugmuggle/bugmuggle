@@ -8,7 +8,7 @@ export default defineOAuthGoogleEventHandler({
     }
   },
   async onSuccess(event, { user, tokens }) {
-    const db = useDrizzle()
+    const db = event.context.db
 
     let queryUser = (await db.select()
       .from(tables.users)

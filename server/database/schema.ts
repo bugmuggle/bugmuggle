@@ -1,5 +1,5 @@
-import { pgTable, serial, varchar, text, timestamp, pgEnum } from 'drizzle-orm/pg-core'
-const projectMembershipTypeEnum = pgEnum("project_membership_types", ["admin", "member", "guest"])
+import { pgTable, serial, varchar, text, timestamp, pgEnum, jsonb } from 'drizzle-orm/pg-core'
+export const projectMembershipTypeEnum = pgEnum("project_membership_types", ["admin", "member", "guest"])
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -13,8 +13,7 @@ export const users = pgTable('users', {
 
 export const userPref = pgTable('user_pref', {
   id: serial('id').primaryKey(),
-  key: text('key'),
-  value: text('value'),
+  pref: jsonb('pref'),
   userId: serial('user_id').references(() => users.id).notNull()
 })
 

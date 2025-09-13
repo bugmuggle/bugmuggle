@@ -12,7 +12,7 @@ export default defineAuthHandler(async (event) => {
     return createError(ERR_RESPONSE_BAD_REQUSET)
   }
 
-  const db = useDrizzle()
+  const db = event.context.db
   const { name } = parsedBody.data
   const reqUserId = event.context.user.id
 

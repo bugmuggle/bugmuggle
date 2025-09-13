@@ -10,5 +10,5 @@ export function useDrizzle () {
     throw createError('Missing `NUXT_DATABASE_URL` environment variable')
   }
 
-  return drizzle(dbUrl as string)
+  return drizzle(dbUrl as string, { schema })
 }

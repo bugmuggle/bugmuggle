@@ -1,7 +1,7 @@
 import { and, asc, desc, eq, gt, lt } from "drizzle-orm"
 
 export default defineAuthHandler(async (event) => {
-  const db = useDrizzle()
+  const db = event.context.db
   const reqUserId = event.context.user?.id
 
   let { limit, offsetId, order } = getQuery(event)

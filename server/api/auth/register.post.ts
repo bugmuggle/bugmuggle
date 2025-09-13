@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const { email, password } = parseBody.data
-    const db = useDrizzle()
+    const db = event.context.db
 
     const [queryUser] = await db.select()
       .from(tables.users)
