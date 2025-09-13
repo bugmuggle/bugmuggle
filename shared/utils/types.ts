@@ -60,3 +60,11 @@ export type ServerErrObject = {
   statusCode: number
   statusMessage: string
 }
+
+export type ProjectsListResponse = {
+  rows: Project[]
+  totalRows: number
+  order: 'asc' | 'desc'
+  limit: number
+  offsetId: number
+}
