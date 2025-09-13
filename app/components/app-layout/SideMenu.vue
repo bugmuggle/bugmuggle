@@ -9,8 +9,8 @@
     <UInput v-model="misc.search" icon="i-lucide-search" class="w-full" placeholder="Search projects ..." />
 
     <div class="relative w-full grow overflow-y-auto border-y border-neutral-100 dark:border-neutral-800 py-2">
-      <div class="z-10 sticky top-2 mb-6">
-        <UAlert v-if="misc.search" variant="subtle" color="neutral">
+      <div v-if="misc.search" class="z-10 sticky top-2 mb-6">
+        <UAlert variant="subtle" color="neutral">
           <template #description>
             <div>
               You are searching for "{{ misc.search }}".
