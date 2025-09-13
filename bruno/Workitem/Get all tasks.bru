@@ -1,0 +1,26 @@
+meta {
+  name: Get all tasks
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}/api/work-items/:pid/all?order=desc&type=task
+  body: none
+  auth: inherit
+}
+
+params:query {
+  order: desc
+  type: task
+  ~offsetId: 8
+  ~limit: 2
+}
+
+params:path {
+  pid: 3
+}
+
+settings {
+  encodeUrl: true
+}

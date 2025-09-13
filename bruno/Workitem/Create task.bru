@@ -1,0 +1,27 @@
+meta {
+  name: Create task
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}/api/work-items/:pid/create
+  body: json
+  auth: inherit
+}
+
+params:path {
+  pid: 1
+}
+
+body:json {
+  {
+    "type": "task",
+    "title": "Test title",
+    "description": "Test description"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

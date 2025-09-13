@@ -8,6 +8,13 @@
       "when": 1757753479475,
       "tag": "0000_first_black_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1757768975519,
+      "tag": "0001_simple_silvermane",
+      "breakpoints": true
     }
   ]
 }

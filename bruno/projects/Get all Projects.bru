@@ -1,19 +1,19 @@
 meta {
-  name: Get all Projects
+  name: Get all projects
   type: http
   seq: 3
 }
 
 get {
-  url: {{baseURL}}/api/projects/all?order=desc&offsetId=9&limit=3
+  url: {{baseURL}}/api/projects/all?order=desc
   body: none
   auth: inherit
 }
 
 params:query {
   order: desc
-  offsetId: 9
-  limit: 3
+  ~offsetId: 0
+  ~limit: 
 }
 
 settings {
