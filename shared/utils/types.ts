@@ -1,7 +1,20 @@
+import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import type * as schema from '../../server/database/schema'
+
+declare module 'h3' {
+  interface H3EventContext {
+    db: PostgresJsDatabase<typeof schema>
+    user: {
+      id: number
+      email: string
+    }
+  }
+}
+
 export type UserPref = {
   id: number
-  key?: string
-  value?: string
+  key?: string | null
+  value?: string | null
   userId: number
 }
 
@@ -35,7 +48,6 @@ export type ProjectMembershipPayload = {
   userId: UserPref | number
   projectId: Project | number
 }
-
 
 export type CreateProjectParams = {
   name: string

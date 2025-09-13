@@ -14,9 +14,19 @@ export default defineAuthHandler(async (event) => {
     return createError({ statusCode: 403, statusMessage: 'Unauthorized' })
   }
 
-  const queryPref = await db.select()
+  const queryPref: UserPref[] = await db.select()
     .from(tables.userPref)
     .where(eq(tables.userPref.userId, queryUser.id))
+
+  const lastVisitedProjectId = getPrefByKey(
+    queryPref,
+    prefKeys.LAST_VISITED_PROJECT_ID,
+    null
+  )
+
+  if (lastVisitedProjectId) {
+    
+  }
   
   return {
     profile: queryUser,

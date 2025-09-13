@@ -9,8 +9,6 @@ export const defineAuthHandler = <T extends EventHandlerRequest, D> (
         return createError(ERR_RESPONSE_UNAUTHORIZED)
       }
 
-      event.context.db = useDrizzle()
-
       return await handler(event)
     } catch (error) {
       console.error(error)

@@ -17,7 +17,7 @@ const onAuth = (user: any) => {
     return router.replace({ path: '/signin' })
   } else {
     storeUser.userData = user
-    const lastVisitedProjectId = storeUser.getPrefByKey('lastVisitedProjectId', null)
+    const lastVisitedProjectId = getPrefByKey(storeUser?.userData?.pref, prefKeys.LAST_VISITED_PROJECT_ID, null)
 
     if (lastVisitedProjectId) {
       return router.replace({ path: `/app/${lastVisitedProjectId}/home` })

@@ -1,7 +1,7 @@
 import { and, asc, desc, eq, gt, lt } from "drizzle-orm"
 
 export default defineAuthHandler(async (event) => {
-  const db = useDrizzle()
+  const db = event.context.db
   const projectId = +(getRouterParam(event, 'pid') ?? -1)
   const reqUserId = event.context.user?.id
 

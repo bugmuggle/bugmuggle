@@ -18,7 +18,7 @@ export default defineAuthHandler(async (event) => {
 
   const { userId, type: membershipType } = parsedBody.data
 
-  const db = useDrizzle()
+  const db = event.context.db
 
   const [queryMembership] = await db.select()
     .from(tables.projectMemberships)
