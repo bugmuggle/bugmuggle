@@ -20,6 +20,7 @@
     "@nuxt/ui": "3.3.3",
     "@pinia/nuxt": "^0.11.2",
     "@unhead/vue": "^2.0.14",
+    "bcryptjs": "^3.0.2",
     "drizzle-orm": "^0.44.5",
     "eslint": "^9.35.0",
     "nuxt": "^4.1.1",

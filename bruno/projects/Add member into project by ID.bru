@@ -1,0 +1,27 @@
+meta {
+  name: Add member into project by ID
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseURL}}/api/projects/:id/members/add
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 17
+}
+
+body:json {
+  {
+    "userId": 2,
+    "type": "member"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

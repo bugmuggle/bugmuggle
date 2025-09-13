@@ -15,11 +15,34 @@ export type UserProfile = {
 export type Project = {
   id: number
   name: string
-  createdBy: UserPref
-  createdAt: number
+  createdBy: UserPref | number
+  createdAt: string
+  updatedAt?: string
 }
+
+export type ProjectMembership = {
+  id: number
+  type: string
+  userId: UserPref | number
+  projectId: Project | number
+  createdBy: UserPref | number
+  createdAt: string
+  updatedAt?: string
+}
+
+export type ProjectMembershipPayload = {
+  type?: string
+  userId: UserPref | number
+  projectId: Project | number
+}
+
 
 export type CreateProjectParams = {
   name: string
   createdBy: number
+}
+
+export type ServerErrObject = {
+  statusCode: number
+  statusMessage: string
 }

@@ -6,16 +6,14 @@ export const defineAuthHandler = <T extends EventHandlerRequest, D> (
   defineEventHandler<T>(async (event) => {
     try {
       if (!event.context?.user?.email) {
-        return createError({ statusCode: 403, statusMessage: 'Unauthorized' })
+        return createError(ERR_RESPONSE_UNAUTHORIZED)
       }
 
       event.context.db = useDrizzle()
 
       return await handler(event)
     } catch (error) {
-      return createError({
-        statusCode: 500,
-        statusMessage: 'Internal Server Error'
-      })
+      console.error(error)
+      return createError(ERR_RESPONSE_INTERNAL_SERVER_ERROR)
     }
   })

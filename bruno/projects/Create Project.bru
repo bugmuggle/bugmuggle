@@ -4,10 +4,16 @@ meta {
   seq: 1
 }
 
-get {
+post {
   url: {{baseURL}}/api/projects/create
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+    "name": "Project 99"
+  }
 }
 
 settings {

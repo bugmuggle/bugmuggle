@@ -1,0 +1,25 @@
+meta {
+  name: Get Members
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseURL}}/api/projects/:id/members/all?limit=100&offsetId=1&order=desc
+  body: none
+  auth: inherit
+}
+
+params:query {
+  limit: 100
+  offsetId: 1
+  order: desc
+}
+
+params:path {
+  id: 17
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Get all Projects
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseURL}}/api/projects/all?order=desc&offsetId=9&limit=3
+  body: none
+  auth: inherit
+}
+
+params:query {
+  order: desc
+  offsetId: 9
+  limit: 3
+}
+
+settings {
+  encodeUrl: true
+}

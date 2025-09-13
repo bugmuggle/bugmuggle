@@ -22,6 +22,27 @@
       "when": 1757500614800,
       "tag": "0002_bouncy_talon",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1757742060529,
+      "tag": "0003_sturdy_chamber",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1757742134964,
+      "tag": "0004_rich_firebrand",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1757743489837,
+      "tag": "0005_jittery_lionheart",
+      "breakpoints": true
     }
   ]
 }
