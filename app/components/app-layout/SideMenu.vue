@@ -9,6 +9,16 @@
     <UInput v-model="misc.search" icon="i-lucide-search" class="w-full" placeholder="Search projects ..." />
 
     <div class="relative w-full grow overflow-y-auto border-y border-neutral-100 dark:border-neutral-800 py-2">
+      <div class="z-10 sticky top-2 mb-6">
+        <UAlert v-if="misc.search" variant="subtle" color="neutral">
+          <template #description>
+            <div>
+              You are searching for "{{ misc.search }}".
+            </div>
+            <button class="text-primary mt-1 text-sm" @click="() => misc.search = ''">Clear</button>
+          </template>
+        </UAlert>
+      </div>
       <UNavigationMenu :items="projects" class="w-full" orientation="vertical" />
     </div>
 
