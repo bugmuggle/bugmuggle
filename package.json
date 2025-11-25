@@ -20,6 +20,7 @@
     "@nuxt/test-utils": "3.20.1",
     "@nuxt/ui": "4.2.1",
     "@unhead/vue": "^2.0.19",
+    "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.44.7",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
@@ -32,6 +33,7 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@types/node": "^24.10.1",
     "drizzle-kit": "^0.31.7"
   }
 }

@@ -34,7 +34,10 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log('Submitted', payload)
+  $fetch('/api/auth/login', {
+    method: 'POST',
+    body: payload
+  })
 }
 </script>
 
