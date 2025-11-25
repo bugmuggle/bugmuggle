@@ -19,8 +19,11 @@
     "@unhead/vue": "^2.0.19",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
+    "nuxt-auth-utils": "0.5.25",
+    "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
     "vue": "^3.5.25",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "zod": "^4.1.13"
   }
 }
