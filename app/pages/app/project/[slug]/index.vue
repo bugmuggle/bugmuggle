@@ -16,7 +16,7 @@ definePageMeta({
   layout: 'app'
 })
 
-const tasks = [
+const tasks: Task[] = [
   {
     id: 1,
     title: "API Integration",

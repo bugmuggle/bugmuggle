@@ -20,4 +20,12 @@ declare global {
     avatar: string
   }
 
+  interface TaskTable {
+    title: string
+    assignee?: number
+    status: TaskStatus
+    deadline: string | Date
+    actions: string
+  }
+
 }

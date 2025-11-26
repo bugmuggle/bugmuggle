@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui'
 import { AppStatusDropdown } from '#components'
 
 defineProps<{
@@ -11,8 +12,8 @@ defineProps<{
 
 const UButton = resolveComponent('UButton')
 
-const columns = ref([
-    {
+const columns: Ref<TableColumn<Task, unknown>[]> = ref([
+  {
     accessorKey: 'title',
     header: ({ column }) => {
       const isSorted = column.getIsSorted()
@@ -26,10 +27,10 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true
   },
   {
     accessorKey: 'deadline',
@@ -45,10 +46,18 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true
+    cell: (ctx) => {
+      const date = new Date(ctx.getValue() as string)
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    }
   },
   {
     accessorKey: 'status',
@@ -64,13 +73,13 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true,
-    cell: (ctx: any) =>
+    cell: (ctx) =>
       h(AppStatusDropdown, {
-        modelValue: ctx.getValue(),
+        modelValue: ctx.getValue() as TaskStatus,
         'onUpdate:modelValue': (v: TaskStatus) =>
           (ctx.row.original.status = v)
       })
@@ -85,6 +94,4 @@ const columns = ref([
       )
   }
 ])
-
-const defaultSort = ref({ column: 'deadline', direction: 'asc' })
 </script>

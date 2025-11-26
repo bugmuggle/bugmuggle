@@ -23,7 +23,7 @@ useHead({
   title: `Home - ${appTitle}`
 })
 
-const tasks = [
+const tasks: Task[] = [
   {
     id: 1,
     title: "Complete UI Review",

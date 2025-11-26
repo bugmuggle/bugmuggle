@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui'
 import { AppStatusDropdown, AppUserDropdown } from '#components'
 
 defineProps<{
@@ -11,7 +12,7 @@ defineProps<{
 
 const UButton = resolveComponent('UButton')
 
-const columns = ref([
+const columns: Ref<TableColumn<Task, unknown>[]> = ref([
   {
     accessorKey: 'title',
     header: ({ column }) => {
@@ -26,17 +27,17 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true
   },
   {
     accessorKey: 'assignee',
     header: 'Assigned To',
-    cell: (ctx: any) =>
+    cell: (ctx) =>
       h(AppUserDropdown, {
-        modelValue: ctx.getValue(),
+        modelValue: ctx.getValue() as number,
         'onUpdate:modelValue': (v: number) =>
           (ctx.row.original.assignee = v)
       })
@@ -55,13 +56,13 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true,
-    cell: (ctx: any) =>
+    cell: (ctx) =>
       h(AppStatusDropdown, {
-        modelValue: ctx.getValue(),
+        modelValue: ctx.getValue() as TaskStatus,
         'onUpdate:modelValue': (v: TaskStatus) =>
           (ctx.row.original.status = v)
       })
@@ -80,10 +81,18 @@ const columns = ref([
             : 'i-lucide-arrow-down-wide-narrow'
           : 'i-lucide-arrow-up-down',
         class: '-mx-2.5',
+        ui: { leadingIcon : 'text-muted'},
         onClick: () => column.toggleSorting(isSorted === 'asc')
       })
     },
-    sortable: true
+    cell: (ctx) => {
+      const date = new Date(ctx.getValue() as string)
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    }
   },
   {
     id: 'actions',
