@@ -20,6 +20,9 @@
           @click="toggleChatWindow"
         />
       </div>
+    <div class="h-full overflow-auto">
+      <slot />
+    </div>
     </div>
     <div
       :class="[
