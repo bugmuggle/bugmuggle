@@ -1,5 +1,5 @@
 <template>
-  <UTable :data="tasks" :columns="columns" class="w-full" />
+  <UTable :data="tasks" :columns="columns" class="w-full hide-scrollbar" />
 </template>
 
 <script setup lang="ts">
