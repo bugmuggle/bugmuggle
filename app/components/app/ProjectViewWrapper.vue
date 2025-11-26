@@ -8,7 +8,7 @@
     >
       <div class="flex items-center gap-3 h-12 px-3">
         <p class="text-lg font-bold">
-          <slot name="projectName" />
+          <slot name="title" />
         </p>
         <div class="grow" />
         <UButton

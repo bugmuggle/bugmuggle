@@ -12,6 +12,7 @@ const menuItems = ref<NavigationMenuItem[][]>([
     {
       label: 'My Tasks',
       icon: 'lucide:layout-list',
+      to: '/app/home'
     },
   ],
   [
@@ -21,15 +22,19 @@ const menuItems = ref<NavigationMenuItem[][]>([
     },
     {
       label: 'Bugmuggle',
+      to: '/app/project/1'
     },
   ],
   [
     {
-      label: 'DMs',
+      label: 'Direct Messages',
       type: "label"
     },
     {
-      label: 'Bugmuggle',
+      label: 'Kiran Sai K',
+      avatar: {
+        src: 'https://avatars.githubusercontent.com/u/35134207?v=4'
+      }
     },
   ]
 ])
