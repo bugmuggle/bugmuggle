@@ -13,5 +13,11 @@ export default defineNuxtConfig({
     'nuxt-auth-utils'
   ],
 
-  css: ['./app/assets/styles/main.css']
+  css: ['./app/assets/styles/main.css'],
+
+  routeRules: {
+    '/app/**': {
+      appMiddleware: 'only-secure-route'
+    }
+  }
 })

@@ -1,4 +1,5 @@
 export default defineAppConfig({
+  appTitle: 'Xplorebits',
   ui: {
     colors: {
       primary: 'green',

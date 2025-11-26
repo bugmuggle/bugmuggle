@@ -22,6 +22,15 @@ const menuItems = ref<NavigationMenuItem[][]>([
     {
       label: 'Bugmuggle',
     },
+  ],
+  [
+    {
+      label: 'DMs',
+      type: "label"
+    },
+    {
+      label: 'Bugmuggle',
+    },
   ]
 ])
 </script>
