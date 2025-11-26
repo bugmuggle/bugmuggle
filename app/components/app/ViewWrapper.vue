@@ -7,6 +7,9 @@
         </p>
       </div>
     </div>
+    <div class="pt-12 h-full overflow-auto">
+      <slot />
+    </div>
   </div>
 </template>
 

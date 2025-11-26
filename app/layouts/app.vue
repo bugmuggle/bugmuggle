@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-[100dvh] w-full">
+  <div class="relative h-dvh w-full">
     <div class="absolute top-0 bottom-0 left-0 w-64">
       <app-sidebar class="px-3 py-2" />
     </div>
