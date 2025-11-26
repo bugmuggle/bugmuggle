@@ -21,10 +21,12 @@ const emit = defineEmits<{
 }>()
 
 const users: UserOption[] = [
-  { id: 1, name: 'John Doe', avatar: '/avatars/john.png' },
-  { id: 2, name: 'Sarah Lee', avatar: '/avatars/sarah.png' },
-  { id: 3, name: 'Mike Brown', avatar: '/avatars/mike.png' },
-  { id: 4, name: 'Emily Davis', avatar: '/avatars/emily.png' }
+  { id: 1, name: 'John Doe', avatar: 'https://randomuser.me/api/portraits/men/83.jpg' },
+  { id: 2, name: 'Sarah Lee', avatar: 'https://randomuser.me/api/portraits/women/10.jpg' },
+  { id: 3, name: 'Mike Brown', avatar: 'https://randomuser.me/api/portraits/men/10.jpg' },
+  { id: 4, name: 'Emily Davis', avatar: 'https://randomuser.me/api/portraits/women/80.jpg' },
+  { id: 5, name: 'David Wilson', avatar: 'https://randomuser.me/api/portraits/men/30.jpg' },
+  { id: 6, name: 'Sophia Taylor', avatar: 'https://randomuser.me/api/portraits/women/30.jpg' }
 ];
 
 const selectedUser = computed(() =>

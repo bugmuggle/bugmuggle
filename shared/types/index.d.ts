@@ -12,7 +12,7 @@ declare global {
     createdBy: number
   }
 
-  export type TaskStatus = 'COMPLETED' | 'PROGRESS' | 'PENDING' | 'BLOCKED' | 'CANCELLED'
+  export type TaskStatus = 'COMPLETED' | 'PROGRESS' | 'PENDING' | 'BLOCKED' | 'CANCELLED' | 'STARTING'
 
   export interface UserOption {
     id: number

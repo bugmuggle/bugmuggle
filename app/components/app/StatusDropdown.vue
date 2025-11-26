@@ -25,16 +25,18 @@ const statusOptions: TaskStatus[] = [
   'PROGRESS',
   'PENDING',
   'BLOCKED',
-  'CANCELLED'
+  'CANCELLED',
+  'STARTING'
 ]
-
 const statusColors: Record<TaskStatus, string> = {
-  COMPLETED: 'bg-green-100 text-green-700',
-  PROGRESS: 'bg-blue-100 text-blue-700',
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  BLOCKED: 'bg-red-100 text-red-700',
-  CANCELLED: 'bg-red-200 text-red-800'
+  COMPLETED: 'bg-green-900 text-green-200',
+  PROGRESS: 'bg-blue-900 text-blue-200',
+  PENDING: 'bg-yellow-900 text-yellow-200',
+  BLOCKED: 'bg-red-900 text-red-200',
+  CANCELLED: 'bg-red-900 text-red-200',
+  STARTING: 'bg-purple-900 text-purple-200'
 }
+
 
 const items = computed(() =>
   statusOptions.map((s) => ({

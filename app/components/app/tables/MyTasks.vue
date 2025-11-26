@@ -9,6 +9,8 @@ defineProps<{
   tasks: Task[]
 }>()
 
+const UButton = resolveComponent('UButton')
+
 const columns = ref([
   { accessorKey: 'title', header: 'Title', sortable: true },
   { accessorKey: 'deadline', header: 'Deadline', sortable: true },
@@ -28,9 +30,8 @@ const columns = ref([
     header: 'Actions',
     cell: () =>
       h(
-        'button',
-        { class: 'px-2 py-1 rounded bg-gray-200 hover:bg-gray-300' },
-        'Edit'
+        UButton,
+        { variant: 'subtle', label: 'Edit' },
       )
   }
 ])

@@ -45,7 +45,7 @@ const tasks = [
     title: "Fix Authentication Bug",
     status: "PENDING",
     deadline: "2025-02-28T17:00:00Z",
-    assignee: 2,
+    assignee: 3,
     createdBy: 4
   },
   {
@@ -53,7 +53,7 @@ const tasks = [
     title: "Design Dashboard Layout",
     status: "COMPLETED",
     deadline: "2025-02-15T12:00:00Z",
-    assignee: 1,
+    assignee: 4,
     createdBy: 1
   }
 ]

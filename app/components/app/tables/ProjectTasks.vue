@@ -9,18 +9,19 @@ defineProps<{
   tasks: Task[]
 }>()
 
+const UButton = resolveComponent('UButton')
+
 const columns = ref([
   { accessorKey: 'title', header: 'Title', sortable: true },
   {
     accessorKey: 'assignee',
     header: 'Assigned To',
-    cell: (ctx: unknown) => {
+    cell: (ctx: unknown) =>
       h(AppUserDropdown, {
         modelValue: ctx.getValue(),
         'onUpdate:modelValue': (v: number) =>
           (ctx.row.original.assignee = v)
       })
-    }
   },
   {
     accessorKey: 'status',
@@ -39,9 +40,8 @@ const columns = ref([
     header: 'Actions',
     cell: () =>
       h(
-        'button',
-        { class: 'px-2 py-1 rounded bg-gray-200 hover:bg-gray-300' },
-        'View'
+        UButton,
+        { variant: 'subtle', label: 'View' },
       )
   }
 ])
