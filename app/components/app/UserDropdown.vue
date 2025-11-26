@@ -1,11 +1,7 @@
 <template>
   <UDropdownMenu :items="items">
-    <div class="flex items-center gap-2 cursor-pointer">
-      <img
-        v-if="selectedUser"
-        :src="selectedUser.avatar"
-        class="w-6 h-6 rounded-full"
-      >
+    <div class="flex items-center jus gap-2 cursor-pointer">
+      <UAvatar v-if="selectedUser" :src="selectedUser.avatar" />
       <span>{{ selectedUser?.name ?? 'Unknown' }}</span>
     </div>
   </UDropdownMenu>
@@ -36,7 +32,7 @@ const selectedUser = computed(() =>
 const items = computed(() =>
   users.map((u) => ({
     label: u.name,
-    icon: () => h('img', { src: u.avatar, class: 'w-4 h-4 rounded-full' }),
+    avatar: { src: u.avatar },
     click: () => emit('update:modelValue', u.id)
   }))
 )
