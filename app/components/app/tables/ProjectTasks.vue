@@ -3,34 +3,11 @@
 </template>
 
 <script setup lang="ts">
+import { AppStatusDropdown, AppUserDropdown } from '#components'
+
 defineProps<{
   tasks: Task[]
 }>()
-
-const users: UserOption[] = [
-  { id: 1, name: 'John Doe', avatar: '/avatars/john.png' },
-  { id: 2, name: 'Sarah Lee', avatar: '/avatars/sarah.png' },
-  { id: 3, name: 'Mike Brown', avatar: '/avatars/mike.png' },
-  { id: 4, name: 'Emily Davis', avatar: '/avatars/emily.png' }
-];
-
-const statusColors: Record<TaskStatus, string> = {
-  COMPLETED: 'bg-green-100 text-green-700',
-  PROGRESS: 'bg-blue-100 text-blue-700',
-  PENDING: 'bg-yellow-100 text-yellow-700',
-  BLOCKED: 'bg-red-100 text-red-700',
-  CANCELLED: 'bg-red-200 text-red-800'
-}
-
-const statusOptions: TaskStatus[] = [
-  'COMPLETED',
-  'PROGRESS',
-  'PENDING',
-  'BLOCKED',
-  'CANCELLED'
-]
-
-const UDropdownMenu = resolveComponent('UDropdownMenu');
 
 const columns = ref([
   { accessorKey: 'title', header: 'Title', sortable: true },
@@ -38,24 +15,11 @@ const columns = ref([
     accessorKey: 'assignee',
     header: 'Assigned To',
     cell: (ctx: unknown) => {
-      const user = users.find((u) => u.id === ctx.getValue())
-      return h(
-        UDropdownMenu,
-        {
-          items: users.map((u) => ({
-            label: u.name,
-            icon: () => h('img', { src: u.avatar, class: 'w-4 h-4 rounded-full' }),
-            click: () => (ctx.row.original.assignee = u.id)
-          }))
-        },
-        {
-          default: () =>
-            h('div', { class: 'flex items-center gap-2 cursor-pointer' }, [
-              h('img', { src: user?.avatar, class: 'w-6 h-6 rounded-full' }),
-              h('span', {}, user?.name ?? 'Unknown')
-            ])
-        }
-      )
+      h(AppUserDropdown, {
+        modelValue: ctx.getValue(),
+        'onUpdate:modelValue': (v: number) =>
+          (ctx.row.original.assignee = v)
+      })
     }
   },
   {
@@ -63,27 +27,11 @@ const columns = ref([
     header: 'Status',
     sortable: true,
     cell: (ctx: unknown) =>
-      h(
-        UDropdownMenu,
-        {
-          items: statusOptions.map((s) => ({
-            label: s,
-            click: () => (ctx.row.original.status = s)
-          }))
-        },
-        {
-          default: () =>
-            h(
-              'span',
-              {
-                class:
-                  'px-3 py-1 rounded text-sm cursor-pointer ' +
-                  statusColors[ctx.getValue()]
-              },
-              ctx.getValue()
-            )
-        }
-      )
+      h(AppStatusDropdown, {
+        modelValue: ctx.getValue(),
+        'onUpdate:modelValue': (v: TaskStatus) =>
+          (ctx.row.original.status = v)
+      })
   },
   { accessorKey: 'deadline', header: 'Deadline', sortable: true },
   {
