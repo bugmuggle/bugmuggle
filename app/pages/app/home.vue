@@ -29,15 +29,15 @@ const tasks = [
     title: "Complete UI Review",
     status: "STARTING",
     deadline: "2025-02-20T10:00:00Z",
-    assignee: 10,
+    assignee: 1,
     createdBy: 2
   },
   {
     id: 2,
     title: "Prepare Project Documentation",
-    status: "IN_PROGRESS",
+    status: "PROGRESS",
     deadline: "2025-03-01T09:30:00Z",
-    assignee: 10,
+    assignee: 2,
     createdBy: 3
   },
   {
@@ -45,7 +45,7 @@ const tasks = [
     title: "Fix Authentication Bug",
     status: "PENDING",
     deadline: "2025-02-28T17:00:00Z",
-    assignee: 10,
+    assignee: 2,
     createdBy: 4
   },
   {
@@ -53,7 +53,7 @@ const tasks = [
     title: "Design Dashboard Layout",
     status: "COMPLETED",
     deadline: "2025-02-15T12:00:00Z",
-    assignee: 10,
+    assignee: 1,
     createdBy: 1
   }
 ]

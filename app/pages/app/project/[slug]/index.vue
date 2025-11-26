@@ -20,7 +20,7 @@ const tasks = [
   {
     id: 1,
     title: "API Integration",
-    status: "IN_PROGRESS",
+    status: "PROGRESS",
     deadline: "2025-03-01T16:00:00Z",
     assignee: 3,
     createdBy: 1
