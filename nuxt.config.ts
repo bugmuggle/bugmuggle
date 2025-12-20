@@ -18,7 +18,12 @@ export default defineNuxtConfig({
     '/': { prerender: true }
   },
 
-  hub: {},
+  hub: {
+    db: 'postgresql',
+    connection: {
+      connectionString: process.env.DATABASE_URL
+    }
+  },
 
   compatibilityDate: '2025-01-15',
 
