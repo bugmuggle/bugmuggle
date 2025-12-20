@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, text, serial, timestamp, integer, boolean } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: serial().primaryKey(),
@@ -9,3 +9,8 @@ export const users = pgTable('users', {
   createdAt: timestamp().notNull().defaultNow(),
 })
 
+export const admins = pgTable("admins", {
+  id: serial().primaryKey(),
+  uid: integer().notNull().references(() => users.id),
+  rootAdmin: boolean(),
+})

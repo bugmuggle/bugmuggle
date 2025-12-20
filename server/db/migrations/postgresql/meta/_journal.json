@@ -8,6 +8,13 @@
       "when": 1766239135979,
       "tag": "0000_good_the_call",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1766240707964,
+      "tag": "0001_motionless_magneto",
+      "breakpoints": true
     }
   ]
 }

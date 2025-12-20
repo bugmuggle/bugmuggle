@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/hints',
     '@nuxt/test-utils',
-    '@nuxthub/core-nightly'
+    '@nuxthub/core-nightly',
+    '@nuxt/image'
   ],
 
   devtools: {
