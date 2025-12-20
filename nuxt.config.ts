@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxt/hints',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@nuxthub/core-nightly'
   ],
 
   devtools: {
@@ -16,6 +17,8 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true }
   },
+
+  hub: {},
 
   compatibilityDate: '2025-01-15',
 

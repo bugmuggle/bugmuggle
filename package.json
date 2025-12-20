@@ -16,6 +16,7 @@
     "@nuxt/hints": "1.0.0-alpha.4",
     "@nuxt/test-utils": "3.21.0",
     "@nuxt/ui": "^4.2.1",
+    "@nuxthub/core-nightly": "0.10.0-20251210-113644-c25eff9",
     "nuxt": "^4.2.2"
   },
   "devDependencies": {
