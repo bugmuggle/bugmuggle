@@ -62,38 +62,38 @@
 <script setup lang="ts">
 const { user, clear } = useUserSession()
 
+const route = useRoute()
+const pid = computed(() => route.params.pid)
+
 const mainNavItems = [
   [
     {
       label: 'My tasks',
       icon: 'i-lucide-check-square',
-      to: '/tasks'
+      to: `/project/${pid.value}/my-tasks`
     }
   ]
 ]
 
-const projectsNavItems = [
+const projectsNavItems = computed(() => [
   [
     {
       label: 'Bugmuggle Core',
-      icon: 'i-lucide-bug',
-      to: '/project/1/home',
+      to: `/project/${pid.value}/home`,
       color: 'primary' as const
     },
     {
       label: 'Infrastructure',
-      icon: 'i-lucide-server',
-      to: '/project/2/home'
+      to: `/project/${pid.value}/home1`
     },
     {
       label: 'Mobile App',
-      icon: 'i-lucide-smartphone',
-      to: '/project/3/home'
+      to: `/project/${pid.value}/home2`
     }
   ]
-]
+])
 
-const footerNavItems = [
+const footerNavItems = computed(() => [
   [
     {
       label: 'Settings',
@@ -114,5 +114,5 @@ const footerNavItems = [
       }
     }
   ]
-]
+])
 </script>
