@@ -56,6 +56,13 @@ export default defineEventHandler(async (event) => {
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`
     }).returning()
 
+    if (!user) {
+      throw createError({
+        statusCode: 500,
+        statusMessage: 'Failed to create user'
+      })
+    }
+
     // Add user into root admin
     await db.insert(schema.admins).values({
       uid: user.id,
