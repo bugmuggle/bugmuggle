@@ -51,7 +51,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto relative bg-white dark:bg-zinc-950">
+    <main class="flex-1 overflow-y-hidden relative bg-white dark:bg-neutral-900">
       <div class="h-full">
         <slot />
       </div>

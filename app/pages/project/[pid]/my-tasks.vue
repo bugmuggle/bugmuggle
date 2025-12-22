@@ -1,7 +1,9 @@
 <template>
-  <div>
-    My Tasks
-  </div>
+  <page-wrapper>
+    <template #title>My Tasks</template>
+
+    hello
+  </page-wrapper>
 </template>
 
 <script setup lang="ts">
