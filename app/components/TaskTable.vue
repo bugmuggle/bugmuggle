@@ -1,12 +1,23 @@
 <template>
-  <div class="p-4 border rounded-md border-neutral-700 h-full">
+  <div class="relative">
     <ag-grid-vue
       :rowData="rowData"
       :columnDefs="colDefs"
       :theme="theme"
-      style="height: 100%"
-    >
-    </ag-grid-vue>
+      :domLayout="'autoHeight'"
+      style="height: auto"
+    />
+
+    <div class="flex items-center gap-3 mt-4">
+      <UButton
+        variant="outline"
+        size="sm"
+        icon="lucide-plus"
+        color="neutral"
+      >
+        Add Task
+      </UButton>
+    </div>
   </div>
 </template>
 
@@ -32,6 +43,7 @@ const themeParams = {
     oddRowBackgroundColor: 'rgb(0, 0, 0, 0.03)',
     headerColumnResizeHandleColor: 'white',
     wrapperBorder: false,
+    statusBar: null
   },
   light: {
     backgroundColor: 'transparent',
@@ -41,6 +53,7 @@ const themeParams = {
     oddRowBackgroundColor: 'rgb(0, 0, 0, 0.03)',
     headerColumnResizeHandleColor: 'black',
     wrapperBorder: false,
+    statusBar: null
   }
 }
 
@@ -48,8 +61,6 @@ const theme = computed(() => isDark.value ? themeBalham.withParams(themeParams.d
 
 const rowData = ref([
   { make: "Tesla", model: "Model Y", price: 64950, electric: true },
-  { make: "Ford", model: "F-Series", price: 33850, electric: false },
-  { make: "Toyota", model: "Corolla", price: 29600, electric: false },
 ]);
 
 const colDefs = ref([
