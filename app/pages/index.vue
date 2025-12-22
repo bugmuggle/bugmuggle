@@ -16,9 +16,9 @@ onMounted(() => {
   $fetch('/api/info')
     .then((res) => {
       if (res.admin) {
-        return navigateTo({ path: '/home' })
+        navigateTo({ path: '/project/1/home' })
       } else {
-        return navigateTo({ path: '/admin/setup' })
+        navigateTo({ path: '/admin/setup' })
       }
     })
 })

@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     '@nuxt/test-utils',
     '@nuxthub/core-nightly',
-    '@nuxt/image'
+    '@nuxt/image',
+    'nuxt-auth-utils'
   ],
 
   devtools: {

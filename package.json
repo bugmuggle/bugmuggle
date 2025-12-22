@@ -26,6 +26,7 @@
     "drizzle-kit": "^0.31.8",
     "drizzle-orm": "^0.45.1",
     "nuxt": "^4.2.2",
+    "nuxt-auth-utils": "0.5.26",
     "postgres": "^3.4.7",
     "zod": "^4.2.1"
   },
