@@ -2,7 +2,7 @@
   <page-wrapper>
     <template #title>My Tasks</template>
 
-    hello
+    <task-table />
   </page-wrapper>
 </template>
 
