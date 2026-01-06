@@ -13,8 +13,14 @@
           class="w-full"
         />
         
-        <div class="pt-6 pb-2 px-3 text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
-          Recent Projects
+        <div class="pt-6 pb-2 px-3">
+          <div class="flex items-center gap-3">
+            <p class="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">Recent Projects</p>
+            <div class="grow" />
+            <app-modal-create-project>
+              <UButton icon="i-lucide-plus" size="xs" color="secondary" variant="solid" />
+            </app-modal-create-project>
+          </div>
         </div>
         
         <UNavigationMenu
@@ -63,7 +69,9 @@
 const { user, clear } = useUserSession()
 
 const route = useRoute()
-const pid = computed(() => route.params.pid)
+const pid = computed(() => +(route.params?.pid ?? -1))
+
+const { projects } = await useProjects()
 
 const mainNavItems = [
   [
@@ -75,23 +83,18 @@ const mainNavItems = [
   ]
 ]
 
-const projectsNavItems = computed(() => [
+const projectsNavItems = computed(() => 
   [
-    {
-      label: 'Bugmuggle Core',
-      to: `/project/${pid.value}/home`,
-      color: 'primary' as const
-    },
-    {
-      label: 'Infrastructure',
-      to: `/project/${pid.value}/home1`
-    },
-    {
-      label: 'Mobile App',
-      to: `/project/${pid.value}/home2`
-    }
+    projects.value?.map((x: Project) => (
+      {
+        ...x,
+        label: x.name,
+        to: `/project/${pid.value}/home`,
+        color: pid.value === x.id ? 'primary' : ''
+      }
+    ))
   ]
-])
+)
 
 const footerNavItems = computed(() => [
   [

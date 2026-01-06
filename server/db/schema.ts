@@ -14,3 +14,8 @@ export const admins = pgTable("admins", {
   uid: integer().notNull().references(() => users.id),
   rootAdmin: boolean(),
 })
+
+export const projects = pgTable("projects", {
+  id: serial().primaryKey(),
+  name: text().notNull()
+})
